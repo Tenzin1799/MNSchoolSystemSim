@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 
 public class School {
-    String name;
-    double moneyInSchool;
-    LinkedList<Teacher> teachers = new LinkedList<>();
-    LinkedList<Student> students = new LinkedList<>();
-    double expenses;
+    private String name;
+    private double moneyInSchool;
+    private LinkedList<Teacher> teachers = new LinkedList<>();
+    private LinkedList<Student> students = new LinkedList<>();
+    private double expenses;
 
     public School(String name, LinkedList<Teacher> teachers, LinkedList<Student> students, double moneyInSchool){
         this.name = name;
@@ -32,4 +32,7 @@ public class School {
         return expenses;
     }
 
+    public String toString(){
+        return name;
+    }
 }

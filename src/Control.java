@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -13,15 +14,53 @@ public class Control {
         setInitialStudents();
         setInitialTeachers();
         setInitialSchools();
-        System.out.println("Hello. Enter 1 to get NHCC School stuff. Enter anything else to exit.");
-        int res = input.nextInt();
-        if (res == 1){
-            System.out.println(schools.get(schoolsList.get(0)));
-        } else {
-            System.out.println("Goodbye.");
-        }
+        String res;
+        do {
+            System.out.println("SCHOOLS:");
+            for (School school : schoolsList){
+                System.out.println(school.getName());
+            }
+            System.out.println("____________");
+            System.out.println("Enter \"0\" to exit program.");
+            System.out.println("Enter \"1\" to choose a specific school.");
+            res = input.nextLine();
+            if (res.equals("0")){
+                System.out.println("Goodbye.");
+            } else if (res.equals("1")) {
+                choseSchool();
+            } else {
+                System.out.println("Input not allowed. Try again.");
+            }
+        } while (!res.equals("0"));
     }
 
+
+
+    private void choseSchool(){
+        String res;
+        do {
+            System.out.println("Enter \"0\" to return.");
+            for (int i = 0; i < schoolsList.size(); i++) {
+                int j = 1;
+                System.out.println("Enter \"" + j + "\" to get " + schoolsList.get(i).getName() +
+                        "'s list of teachers.\n____________");
+                j++;
+            }
+            res = input.nextLine();
+            try{
+                int resNum = Integer.parseInt(res);
+                if (resNum <= schoolsList.size()){
+                    System.out.println(schools.get(schoolsList.get(resNum-1)));
+                }
+            } catch (Exception exception){
+                System.out.println("Try again.");
+            }
+        } while (!res.equals("0"));
+
+    }
+
+
+    /// Methods below set initial students, school, and teachers so user has something to work off of.
     private void setInitialStudents(){
         // Initial students to begin with
         Student s1 = new Student("Groot");
@@ -47,6 +86,7 @@ public class Control {
     }
 
     private void setInitialTeachers(){
+        // Initial teachers to begin with
         Teacher t1 = new Teacher("All-Might", 90_000.00, studentsList);
         Teacher t2 = new Teacher("Son Goku", 90_000.00, studentsList);
         Teacher t3 = new Teacher("Ichigo Kurosaki", 80_000.00, studentsList);
@@ -57,6 +97,7 @@ public class Control {
     }
 
     private void setInitialSchools(){
+        // Initial schools to begin with
         School NHCC = new School("North Hennepin Community College", teacherList, studentsList, 0.00);
         schoolsList.add(NHCC);
         schools.put(NHCC, teacherList);
