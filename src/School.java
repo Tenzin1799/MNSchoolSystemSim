@@ -22,10 +22,8 @@ public class School {
         return name;
     }
 
-    public void setExpenses(){
-        for (int i = 0; i < teachers.size(); i++){
-            expenses += teachers.get(i).getSalary();
-        }
+    public void setExpenses(double money){
+        expenses = money;
     }
 
     public double getExpenses(){
@@ -34,5 +32,9 @@ public class School {
 
     public String toString(){
         return name;
+    }
+
+    public LinkedList<Teacher> getTeachers(){
+        return teachers;
     }
 }

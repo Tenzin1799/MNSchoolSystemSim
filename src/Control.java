@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -16,46 +15,175 @@ public class Control {
         setInitialSchools();
         String res;
         do {
+            System.out.println("____________ MAIN MENU ____________");
             System.out.println("SCHOOLS:");
             for (School school : schoolsList){
                 System.out.println(school.getName());
             }
             System.out.println("____________");
-            System.out.println("Enter \"0\" to exit program.");
+            System.out.println("Enter \"-1\" to exit program.");
             System.out.println("Enter \"1\" to choose a specific school.");
             res = input.nextLine();
-            if (res.equals("0")){
+            if (res.equals("-1")){
+                System.out.println("...");
                 System.out.println("Goodbye.");
             } else if (res.equals("1")) {
-                choseSchool();
+                System.out.println("...\n\n");
+                chooseSchool();
             } else {
-                System.out.println("Input not allowed. Try again.");
+                System.out.println("...\n\n");
+                System.out.println("Input not allowed. Try again.\n\n");
             }
-        } while (!res.equals("0"));
+        } while (!res.equals("-1"));
     }
 
 
 
-    private void choseSchool(){
+    private void chooseSchool(){
         String res;
         do {
-            System.out.println("Enter \"0\" to return.");
+            System.out.println("____________ CHOOSE SCHOOL ____________");
+            System.out.println("Enter \"-1\" to go back to main menu.");
             for (int i = 0; i < schoolsList.size(); i++) {
                 int j = 1;
-                System.out.println("Enter \"" + j + "\" to get " + schoolsList.get(i).getName() +
-                        "'s list of teachers.\n____________");
+                System.out.println("Enter \"" + j + "\" to enter " + schoolsList.get(i).getName() +
+                        "'s database.\n____________");
                 j++;
             }
             res = input.nextLine();
             try{
                 int resNum = Integer.parseInt(res);
-                if (resNum <= schoolsList.size()){
-                    System.out.println(schools.get(schoolsList.get(resNum-1)));
+                if (resNum <= schoolsList.size() && resNum > 0){
+                    System.out.println("...\n\n");
+                    schoolChosen(resNum);
+                } else if (resNum == -1){
+                    System.out.println("...\n\n");
+                } else {
+                    System.out.println("...\n\n");
+                    System.out.println("Try again.");
                 }
             } catch (Exception exception){
+                System.out.println("...\n\n");
                 System.out.println("Try again.");
             }
-        } while (!res.equals("0"));
+        } while (!res.equals("-1"));
+    }
+
+
+    //                    System.out.println(schools.get(schoolsList.get(resNum-1))); teachers names
+
+
+    private void schoolChosen(int school){
+        String res;
+        int schoolIndex = school-1;
+        do {
+            System.out.println("____________ " + schoolsList.get(schoolIndex).getName() + "____________");
+            System.out.println("Enter \"-1\" to go back to the \"Choose School\" menu.");
+            System.out.println("Enter \"1\" to get list of teachers at this school.");
+            System.out.println("Enter \"2\" to edit a teacher's salary.");
+            System.out.println("Enter \"3\" to view the school's upcoming expenses.");
+            res = input.nextLine();
+            if (res.equals("-1")){
+                System.out.println("...\n\n");
+            } else if (res.equals("1")){
+                int resNum = Integer.parseInt(res);
+                System.out.println("...\n\n");
+                System.out.println("Teacher's names:");
+                System.out.println(schools.get(schoolsList.get(resNum-1)) + "\n\n");
+
+            } else if (res.equals("2")){
+                System.out.println("...\n\n");
+                chooseTeacher(schoolIndex);
+            } else if (res.equals("3")){
+                System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
+            }else {
+                System.out.println("...\n\n");
+                System.out.println("Try again.");
+            }
+
+        } while (!res.equals("-1"));
+    }
+
+    private void chooseTeacher(int school){
+        String res;
+        do {
+            System.out.println("____________ Choose Teacher ____________");
+            System.out.println("Enter \"-1\" to return to School menu.");
+            int j = 1;
+            for (int i = 0; i < teacherList.size(); i++){
+                System.out.println("Enter " + j + " to choose " +
+                        teacherList.get(i).getName() + ".");
+                j++;
+            }
+            res = input.nextLine();
+            try{
+                int resNum = Integer.parseInt(res);
+                if (resNum <= teacherList.size() && resNum > 0){
+                    System.out.println("...\n\n");
+                    teacherChosen(resNum, school);
+                } else if (resNum == -1){
+                    System.out.println("...\n\n");
+                } else {
+                    System.out.println("...\n\n");
+                    System.out.println("Try again.");
+                }
+            } catch (Exception exception){
+                System.out.println("...\n\n");
+                System.out.println("Try again.");
+            }
+        } while (!res.equals("-1"));
+    }
+
+    private void teacherChosen(int teacher, int school){
+        String res;
+        int teacherIndex = teacher-1;
+        do {
+            System.out.println("____________ " + teacherList.get(teacherIndex) + "____________");
+            System.out.println("Enter \"-1\" to return to \"Choose Teacher\" menu.");
+            System.out.println("Enter \"1\" to view " + teacherList.get(teacherIndex) + "'s salary.");
+            System.out.println("Enter \"2\" to edit " + teacherList.get(teacherIndex) + "'s salary.");
+            res = input.nextLine();
+            if (res.equals("-1")){
+                System.out.println("...\n\n");
+            } else if (res.equals("1")){
+                System.out.println("...\n\n");
+                System.out.println(teacherList.get(teacherIndex) + "'s salary:");
+                System.out.printf("$%,.2f \n\n\n", teacherList.get(teacherIndex).getSalary());
+            } else if (res.equals("2")){
+                System.out.println("...\n\n");
+                editSalary(teacherIndex, school);
+            } else {
+                System.out.println("\n\n");
+                System.out.println("Try again.");
+            }
+        } while(!res.equals("-1"));
+    }
+
+    private void editSalary(int teacher, int school){
+        String newSalary;
+        do {
+            System.out.println("Enter \"-1\" to return to Teacher menu.");
+            System.out.println("Please enter a new salary for " + teacherList.get(teacher) +":");
+            newSalary = input.nextLine();
+            try {
+                if (newSalary.equals("-1")){
+                    System.out.println("...\n\n");
+                } else {
+                    double salaryNum = Double.parseDouble(newSalary.replace(",", ""));
+                    schoolsList.get(school).setExpenses(
+                            schoolsList.get(school).getExpenses() - teacherList.get(teacher).getSalary()
+                    ); // this subtracts expenses from previous salary
+                    teacherList.get(teacher).setSalary(salaryNum);
+                    schoolsList.get(school).setExpenses(
+                            schoolsList.get(school).getExpenses() + teacherList.get(teacher).getSalary()
+                    ); // this adds expenses from new salary
+                    System.out.println("Salary has been edited.\n\n");
+                }
+            } catch (Exception e){
+                System.out.println("Sorry, couldn't process that.\n\n");
+            }
+        } while(!newSalary.equals("-1"));
+
 
     }
 
@@ -87,6 +215,8 @@ public class Control {
 
     private void setInitialTeachers(){
         // Initial teachers to begin with
+        // All teachers are in charge of every student. Meaning if you are enrolled in a school, you are in every
+        // teacher's class.
         Teacher t1 = new Teacher("All-Might", 90_000.00, studentsList);
         Teacher t2 = new Teacher("Son Goku", 90_000.00, studentsList);
         Teacher t3 = new Teacher("Ichigo Kurosaki", 80_000.00, studentsList);
@@ -101,6 +231,11 @@ public class Control {
         School NHCC = new School("North Hennepin Community College", teacherList, studentsList, 0.00);
         schoolsList.add(NHCC);
         schools.put(NHCC, teacherList);
+        double expenses = 0;
+        for (int i = 0; i < teacherList.size(); i++){
+            expenses += schoolsList.get(0).getTeachers().get(i).getSalary();
+        }
+        schoolsList.get(0).setExpenses(expenses);
     }
 
 }
