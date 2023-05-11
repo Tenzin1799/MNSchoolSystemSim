@@ -69,10 +69,6 @@ public class Control {
         } while (!res.equals("-1"));
     }
 
-
-    //                    System.out.println(schools.get(schoolsList.get(resNum-1))); teachers names
-
-
     private void schoolChosen(int school){
         String res;
         int schoolIndex = school-1;
@@ -82,25 +78,40 @@ public class Control {
             System.out.println("Enter \"1\" to get list of teachers at this school.");
             System.out.println("Enter \"2\" to edit a teacher's salary.");
             System.out.println("Enter \"3\" to view the school's upcoming expenses.");
+            System.out.println("Enter \"4\" to get a list of all students at this school.");
+            System.out.println("Enter \"5\" to view student tuition fee.");
+            System.out.println("Enter \"6\" to view the school's revenue.");
             res = input.nextLine();
             if (res.equals("-1")){
                 System.out.println("...\n\n");
             } else if (res.equals("1")){
-                int resNum = Integer.parseInt(res);
                 System.out.println("...\n\n");
                 System.out.println("Teacher's names:");
-                System.out.println(schools.get(schoolsList.get(resNum-1)) + "\n\n");
+                System.out.println(schools.get(schoolsList.get(schoolIndex)) + "\n\n");
 
             } else if (res.equals("2")){
                 System.out.println("...\n\n");
                 chooseTeacher(schoolIndex);
+
             } else if (res.equals("3")){
                 System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
+
+            } else if (res.equals("4")){
+                System.out.println("...\n\n");
+                System.out.println("Student's names:");
+                System.out.println(schoolsList.get(schoolIndex).getStudents() + "\n\n");
+            } else if (res.equals("5")){
+                System.out.println("...\n\n");
+                System.out.printf("$%,.2f\n\n\n", studentsList.get(0).getTuition());
+                // Nothing on the assignment
+                // said I needed to implement a way to add new students or edit their tuition.
+            } else if (res.equals("6")){
+                System.out.println("...\n\n");
+                System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getRevenue());
             }else {
                 System.out.println("...\n\n");
                 System.out.println("Try again.");
             }
-
         } while (!res.equals("-1"));
     }
 
@@ -236,6 +247,14 @@ public class Control {
             expenses += schoolsList.get(0).getTeachers().get(i).getSalary();
         }
         schoolsList.get(0).setExpenses(expenses);
+        double revenue = 0;
+        for (int i = 0; i < studentsList.size(); i++){
+            revenue += schoolsList.get(0).getStudents().get(i).tuition;
+        }
+        schoolsList.get(0).setRevenue(revenue);
     }
 
+    /*
+     Was unable to finish in time, but this is what I got done.
+     */
 }

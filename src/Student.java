@@ -23,4 +23,8 @@ public class Student {
         return tuition;
     }
 
+    public String toString(){
+        return name;
+    }
+
 }
