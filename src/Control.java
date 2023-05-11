@@ -25,18 +25,22 @@ public class Control {
             System.out.println("Enter \"1\" to choose a specific school.");
             System.out.println("Enter \"2\" to create a new school.");
             res = input.nextLine();
-            if (res.equals("-1")){
-                System.out.println("...");
-                System.out.println("Goodbye.");
-            } else if (res.equals("1")) {
-                System.out.println("...\n\n");
-                chooseSchool();
-            } else if (res.equals("3")){
-                System.out.println("...\n\n");
+            switch (res) {
+                case "-1" -> {
+                    System.out.println("...");
+                    System.out.println("Goodbye.");
+                }
+                case "1" -> {
+                    System.out.println("...\n\n");
+                    chooseSchool();
+                }
+                case "3" -> System.out.println("...\n\n");
+
                 // createSchool();
-            }else {
-                System.out.println("...\n\n");
-                System.out.println("Input not allowed. Try again.\n\n");
+                default -> {
+                    System.out.println("...\n\n");
+                    System.out.println("Input not allowed. Try again.\n\n");
+                }
             }
         } while (!res.equals("-1"));
     }
@@ -48,9 +52,9 @@ public class Control {
         do {
             System.out.println("____________ CHOOSE SCHOOL ____________");
             System.out.println("Enter \"-1\" to go back to main menu.");
-            for (int i = 0; i < schoolsList.size(); i++) {
+            for (School school : schoolsList) {
                 int j = 1;
-                System.out.println("Enter \"" + j + "\" to enter " + schoolsList.get(i).getName() +
+                System.out.println("Enter \"" + j + "\" to enter " + school.getName() +
                         "'s database.\n____________");
                 j++;
             }
@@ -86,41 +90,37 @@ public class Control {
             System.out.println("Enter \"5\" to view student tuition fee.");
             System.out.println("Enter \"6\" to view the school's revenue.");
             res = input.nextLine();
-            switch (res){
-                case "-1":
-                    System.out.println("...\n\n");
-                    break;
-                case "1":
+            switch (res) {
+                case "-1" -> System.out.println("...\n\n");
+                case "1" -> {
                     System.out.println("...\n\n");
                     System.out.println("Teacher's names:");
                     System.out.println(schools.get(schoolsList.get(schoolIndex)) + "\n\n");
-                    break;
-                case "2":
+                }
+                case "2" -> {
                     System.out.println("...\n\n");
                     chooseTeacher(schoolIndex);
-                    break;
-                case "3":
-                    System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
-                    break;
-                case "4":
+                }
+                case "3" -> System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
+                case "4" -> {
                     System.out.println("...\n\n");
                     System.out.println("Student's names:");
                     System.out.println(schoolsList.get(schoolIndex).getStudents() + "\n\n");
-                    break;
-                case "5":
+                }
+                case "5" -> {
                     System.out.println("...\n\n");
                     System.out.printf("$%,.2f\n\n\n", studentsList.get(0).getTuition());
-                    break;
-                    // Nothing on the assignment
-                    // said I needed to implement a way to add new students or edit their tuition.
-                case "6":
+                }
+                // Nothing on the assignment
+                // said I needed to implement a way to add new students or edit their tuition.
+                case "6" -> {
                     System.out.println("...\n\n");
                     System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getRevenue());
-                    break;
-                default:
+                }
+                default -> {
                     System.out.println("...\n\n");
                     System.out.println("Try again.");
-                    break;
+                }
             }
         } while (!res.equals("-1"));
     }
@@ -131,9 +131,9 @@ public class Control {
             System.out.println("____________ Choose Teacher ____________");
             System.out.println("Enter \"-1\" to return to School menu.");
             int j = 1;
-            for (int i = 0; i < teacherList.size(); i++){
+            for (Teacher teacher : teacherList) {
                 System.out.println("Enter " + j + " to choose " +
-                        teacherList.get(i).getName() + ".");
+                        teacher.getName() + ".");
                 j++;
             }
             res = input.nextLine();
@@ -164,18 +164,21 @@ public class Control {
             System.out.println("Enter \"1\" to view " + teacherList.get(teacherIndex) + "'s salary.");
             System.out.println("Enter \"2\" to edit " + teacherList.get(teacherIndex) + "'s salary.");
             res = input.nextLine();
-            if (res.equals("-1")){
-                System.out.println("...\n\n");
-            } else if (res.equals("1")){
-                System.out.println("...\n\n");
-                System.out.println(teacherList.get(teacherIndex) + "'s salary:");
-                System.out.printf("$%,.2f \n\n\n", teacherList.get(teacherIndex).getSalary());
-            } else if (res.equals("2")){
-                System.out.println("...\n\n");
-                editSalary(teacherIndex, school);
-            } else {
-                System.out.println("\n\n");
-                System.out.println("Try again.");
+            switch (res) {
+                case "-1" -> System.out.println("...\n\n");
+                case "1" -> {
+                    System.out.println("...\n\n");
+                    System.out.println(teacherList.get(teacherIndex) + "'s salary:");
+                    System.out.printf("$%,.2f \n\n\n", teacherList.get(teacherIndex).getSalary());
+                }
+                case "2" -> {
+                    System.out.println("...\n\n");
+                    editSalary(teacherIndex, school);
+                }
+                default -> {
+                    System.out.println("\n\n");
+                    System.out.println("Try again.");
+                }
             }
         } while(!res.equals("-1"));
     }
