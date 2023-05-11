@@ -23,6 +23,7 @@ public class Control {
             System.out.println("____________");
             System.out.println("Enter \"-1\" to exit program.");
             System.out.println("Enter \"1\" to choose a specific school.");
+            System.out.println("Enter \"2\" to create a new school.");
             res = input.nextLine();
             if (res.equals("-1")){
                 System.out.println("...");
@@ -30,7 +31,10 @@ public class Control {
             } else if (res.equals("1")) {
                 System.out.println("...\n\n");
                 chooseSchool();
-            } else {
+            } else if (res.equals("3")){
+                System.out.println("...\n\n");
+                // createSchool();
+            }else {
                 System.out.println("...\n\n");
                 System.out.println("Input not allowed. Try again.\n\n");
             }
@@ -82,35 +86,41 @@ public class Control {
             System.out.println("Enter \"5\" to view student tuition fee.");
             System.out.println("Enter \"6\" to view the school's revenue.");
             res = input.nextLine();
-            if (res.equals("-1")){
-                System.out.println("...\n\n");
-            } else if (res.equals("1")){
-                System.out.println("...\n\n");
-                System.out.println("Teacher's names:");
-                System.out.println(schools.get(schoolsList.get(schoolIndex)) + "\n\n");
-
-            } else if (res.equals("2")){
-                System.out.println("...\n\n");
-                chooseTeacher(schoolIndex);
-
-            } else if (res.equals("3")){
-                System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
-
-            } else if (res.equals("4")){
-                System.out.println("...\n\n");
-                System.out.println("Student's names:");
-                System.out.println(schoolsList.get(schoolIndex).getStudents() + "\n\n");
-            } else if (res.equals("5")){
-                System.out.println("...\n\n");
-                System.out.printf("$%,.2f\n\n\n", studentsList.get(0).getTuition());
-                // Nothing on the assignment
-                // said I needed to implement a way to add new students or edit their tuition.
-            } else if (res.equals("6")){
-                System.out.println("...\n\n");
-                System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getRevenue());
-            }else {
-                System.out.println("...\n\n");
-                System.out.println("Try again.");
+            switch (res){
+                case "-1":
+                    System.out.println("...\n\n");
+                    break;
+                case "1":
+                    System.out.println("...\n\n");
+                    System.out.println("Teacher's names:");
+                    System.out.println(schools.get(schoolsList.get(schoolIndex)) + "\n\n");
+                    break;
+                case "2":
+                    System.out.println("...\n\n");
+                    chooseTeacher(schoolIndex);
+                    break;
+                case "3":
+                    System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
+                    break;
+                case "4":
+                    System.out.println("...\n\n");
+                    System.out.println("Student's names:");
+                    System.out.println(schoolsList.get(schoolIndex).getStudents() + "\n\n");
+                    break;
+                case "5":
+                    System.out.println("...\n\n");
+                    System.out.printf("$%,.2f\n\n\n", studentsList.get(0).getTuition());
+                    break;
+                    // Nothing on the assignment
+                    // said I needed to implement a way to add new students or edit their tuition.
+                case "6":
+                    System.out.println("...\n\n");
+                    System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getRevenue());
+                    break;
+                default:
+                    System.out.println("...\n\n");
+                    System.out.println("Try again.");
+                    break;
             }
         } while (!res.equals("-1"));
     }
