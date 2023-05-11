@@ -34,15 +34,21 @@ public class Control {
                     System.out.println("...\n\n");
                     chooseSchool();
                 }
-                case "3" -> System.out.println("...\n\n");
-
-                // createSchool();
+                case "2" -> {
+                    System.out.println("...\n\n");
+                    createSchool();
+                }
                 default -> {
                     System.out.println("...\n\n");
                     System.out.println("Input not allowed. Try again.\n\n");
                 }
             }
         } while (!res.equals("-1"));
+    }
+
+    private void createSchool(){
+        System.out.println("____________ CREATE SCHOOL ____________");
+        System.out.println("Feature not yet implemented. Check again later.\n\n");
     }
 
 
@@ -101,7 +107,7 @@ public class Control {
                     System.out.println("...\n\n");
                     chooseTeacher(schoolIndex);
                 }
-                case "3" -> System.out.printf("$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
+                case "3" -> System.out.printf("...\n\n$%,.2f\n\n\n", schoolsList.get(schoolIndex).getExpenses());
                 case "4" -> {
                     System.out.println("...\n\n");
                     System.out.println("Student's names:");
